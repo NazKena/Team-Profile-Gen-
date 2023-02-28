@@ -44,6 +44,8 @@ function addManager () {
             answers.managerEmail,
             answers.managerPhone,
         );
+        teamArray.push(manager)
+        init ()
     }
     )
 }
@@ -84,6 +86,8 @@ function addEngineer () {
             answers.engineerEmail,
             answers.engineerGithub,
         );
+        teamArray.push(engineer)
+        init ()
     }
     )
 }
@@ -124,43 +128,125 @@ function addIntern () {
             answers.internEmail,
             answers.internSchool,
         );
+        teamArray.push(intern)
+        init ()
+
     }
     )
 }
 
-function init () 
+function init () {
     inquirer
     .prompt ([
         {
          type:'list',
-         names:"roles",
+         name:"roles",
          message: "Please choose a role",
-         choices:["Manager, Engineer, Intern"]
+         choices:["Manager", "Engineer", "Intern","Finish"]
         }   
 
     ])
 
-    .then ((answers) => {
-        switch (role) {
+    .then ((answer) => {
+        switch (answer.roles) {
             case "Manager":
-                return inquirer.prompt(this.managerPrompt).then(function (data) {
-                    return data;
-                });
-                break;
+                addManager()
+                break
             case "Engineer":
-                return inquirer.prompt(this.engineerPrompt).then(function (data) {
-                    return data;
-                });
+                addEngineer ()
                 break;
             case "Intern":
-                return inquirer.prompt(this.internPrompt).then(function (data) {
-                    return data;
-                });
+                addIntern ()
                 break;
+            case "Finish":
+                addFinish ()
+                break;    
         }
 
     }   
     )
+}
+
+
+init ()
+
+function addFinish () {
+    const htmlstring=`
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <h1> My Team </h1>
+    ${generateCards()}
+    
+</body>
+</html>
+    
+    
+    `
+}
+
+function generateCards(array) {
+    let string = ''
+    array.forEach(element => {
+
+        if (element instanceof Manager){
+        const cardHtml = `
+            <div class="card">
+                <div class="container">
+                    <h3><b>Name: ${element.getName()}</b></h3> 
+                    <h4>Role: ${element.getRole()}</h4>   
+                    <p>ID:${element.getID ()} </p>
+                    <p>Email: ${element.getEmail()}</p>
+                    <p>Office Number ${element.getOfficeNumber()}</p>
+                </div>
+            </div>
+        `
+        string += cardHtml
+    }
+
+    if (element instanceof Intern) {
+        const cardHtml = `
+        <div class="card">
+            <div class="container">
+                <h3><b>Name: ${element.getName()}</b></h3> 
+                <h4>Role: ${element.getRole()}</h4> 
+                <p>ID:${element.getID ()} </p>
+                <p>Email: ${element.getEmail()}</p>
+                <p>Office Number: ${element.getSchool()} </p>
+            </div>
+        </div>
+    `
+
+    }
+
+    if (element instanceof Engineer) {
+        const cardHtml = `
+        <div class="card">
+            <div class="container">
+                <h3><b>Name: ${element.getName()}</b></h3> 
+                <h4>Role: ${element.getRole()}</h4> 
+                <p>ID:${element.getID ()} </p>
+                <p>Email: ${element.getEmail()}</p>
+                <p>Office Number: ${element.getGitHub()} </p>
+            </div>
+        </div>
+    `
+
+    }
+    
+
+    });
+
+    return string;
+}
 
 
 
