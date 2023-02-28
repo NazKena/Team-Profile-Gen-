@@ -31,8 +31,8 @@ function addManager () {
 
         {
             type: "input",
-            name:"managerPhone",
-            message: "Enter your Manager's phone here",
+            name:"managerOfficeNumber",
+            message: "Enter your Manager's Office Number here",
         },
 
     ])
@@ -42,7 +42,7 @@ function addManager () {
             answers.managerName,
             answers.managerID,
             answers.managerEmail,
-            answers.managerPhone,
+            answers.managerOfficeNumber,
         );
         teamArray.push(manager)
         init ()
@@ -123,7 +123,7 @@ function addIntern () {
 
     .then ((answers) => {
         const intern = new Intern(
-            answers.internrName,
+            answers.internName,
             answers.internID,
             answers.internEmail,
             answers.internSchool,
@@ -184,13 +184,13 @@ function addFinish () {
 </head>
 <body>
     <h1> My Team </h1>
-    ${generateCards()}
+    ${generateCards(teamArray)}
     
 </body>
 </html>
-    
-    
     `
+fs.writeFileSync('./dist/index.html',htmlstring)
+
 }
 
 function generateCards(array) {
@@ -203,9 +203,9 @@ function generateCards(array) {
                 <div class="container">
                     <h3><b>Name: ${element.getName()}</b></h3> 
                     <h4>Role: ${element.getRole()}</h4>   
-                    <p>ID:${element.getID ()} </p>
+                    <p>ID:${element.getId ()} </p>
                     <p>Email: ${element.getEmail()}</p>
-                    <p>Office Number ${element.getOfficeNumber()}</p>
+                    <p>Office Number: ${element.getOfficeNumber()}</p>
                 </div>
             </div>
         `
@@ -218,14 +218,17 @@ function generateCards(array) {
             <div class="container">
                 <h3><b>Name: ${element.getName()}</b></h3> 
                 <h4>Role: ${element.getRole()}</h4> 
-                <p>ID:${element.getID ()} </p>
+                <p>ID:${element.getId ()} </p>
                 <p>Email: ${element.getEmail()}</p>
                 <p>Office Number: ${element.getSchool()} </p>
             </div>
         </div>
     `
+    string += cardHtml
 
     }
+
+
 
     if (element instanceof Engineer) {
         const cardHtml = `
@@ -233,12 +236,13 @@ function generateCards(array) {
             <div class="container">
                 <h3><b>Name: ${element.getName()}</b></h3> 
                 <h4>Role: ${element.getRole()}</h4> 
-                <p>ID:${element.getID ()} </p>
+                <p>ID:${element.getId()} </p>
                 <p>Email: ${element.getEmail()}</p>
                 <p>Office Number: ${element.getGitHub()} </p>
             </div>
         </div>
     `
+    string += cardHtml
 
     }
     
