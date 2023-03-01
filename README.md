@@ -33,7 +33,7 @@ Use `node index.js` and you will be prompted with a list of roles `Engineer, Man
 
 ## Screenshot
 
-![Image](./dist/Image/Screenshot%202023-03-01%20at%2013.32.34.png)
+![Image](./files/Image/Screenshot%202023-03-01%20at%2013.32.34.png)
 
 ## Video Link
 
