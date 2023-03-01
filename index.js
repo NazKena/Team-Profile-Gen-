@@ -189,7 +189,7 @@ function addFinish () {
 </body>
 </html>
     `
-fs.writeFileSync('./dist/index.html',htmlstring)
+fs.writeFileSync('./files/index.html',htmlstring)
 
 }
 
